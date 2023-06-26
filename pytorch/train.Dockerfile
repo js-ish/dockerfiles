@@ -10,6 +10,7 @@ RUN set -eux; \
     pip --disable-pip-version-check --no-cache-dir install -i https://repo.huaweicloud.com/repository/pypi/simple \
         pyyaml
 
+
 VOLUME /hubdata
 
 ONBUILD COPY requirements.txt requirements.txt
