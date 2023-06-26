@@ -42,9 +42,10 @@ jobs:
       - name: Build and run Dev Container task
         uses: devcontainers/ci@v0.3
         with:
-          context: ./pytorch
-          file: ./pytorch/dev.Dockerfile
-          tags: ${{ env.IMAGE_NAME }}:dev
+          imageName: ${{ env.IMAGE_NAME }}
+          imageTag: dev
+          subFolder: pytorch
+          noCache: true
           push: always
   traincontainer:
     runs-on: ubuntu-latest
@@ -60,7 +61,8 @@ jobs:
       - name: Build and run Dev Container task
         uses: devcontainers/ci@v0.3
         with:
-          context: ./pytorch
-          file: ./pytorch/train.Dockerfile
-          tags: ${{ env.IMAGE_NAME }}:train
+          imageName: ${{ env.IMAGE_NAME }}
+          imageTag: train
+          subFolder: pytorch
+          noCache: true
           push: always

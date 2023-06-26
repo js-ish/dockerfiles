@@ -12,7 +12,6 @@ RUN set -eux; \
     sed -i -E "s/#?\s*PasswordAuthentication\s+.+/PasswordAuthentication yes/g" /etc/ssh/sshd_config; \
     mkdir /run/sshd;
 
-
 COPY envlist /tmp/
 
 RUN bash -c 'for line in $(cat /tmp/envlist); do printf "export %s=\"%s\"\n" "$line" "${!line}" | tee -a /etc/profile.d/02-envs.sh; done'
