@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.7.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.7.1-devel-ubuntu22.04
 
 RUN set -eux; \
     sed -i "s@//.*archive.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
@@ -13,5 +13,4 @@ RUN set -eux; \
 
 RUN pip install --disable-pip-version-check --no-cache-dir \
     -i https://repo.huaweicloud.com/repository/pypi/simple \
-    --extra-index-url https://mirrors.aliyun.com/pypi/simple \
     torch torchvision torchaudio torchtext Pillow scikit-learn

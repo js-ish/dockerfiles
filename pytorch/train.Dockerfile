@@ -10,16 +10,17 @@ RUN set -eux; \
     pip --disable-pip-version-check --no-cache-dir install -i https://repo.huaweicloud.com/repository/pypi/simple \
         pyyaml
 
-COPY hub /usr/bin/hub
-
 VOLUME /hubdata
 
-ONBUILD COPY . /usr/src/app/
+ONBUILD COPY requirements.txt requirements.txt
+ONBUILD COPY local_requirements.txt local_requirements.txt
 
 ONBUILD RUN set -eux; \
     pip install --disable-pip-version-check --no-cache-dir install -i https://mirrors.aliyun.com/pypi/simple/ \
-    -r /usr/src/app/requirements.txt; \
+    -r requirements.txt; \
     pip --disable-pip-version-check --no-cache-dir install -i https://package-reader:glpat-GxMbTBVPTAuyQyfyy4yH@gitlab.ish.org.cn/api/v4/projects/51/packages/pypi/simple \
-    -r /usr/src/app/local_requirements.txt;
+    -r local_requirements.txt;
+
+ONBUILD COPY . /usr/src/app/
 
 WORKDIR /usr/src/app
