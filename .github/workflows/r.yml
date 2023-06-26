@@ -39,12 +39,10 @@ jobs:
           registry: ${{ secrets.REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and run Dev Container task
-        uses: devcontainers/ci@v0.3
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
         with:
           context: ./r
           file: ./r/dev.Dockerfile
-          imageName: ${{ env.IMAGE_NAME }}
-          imageTag: dev
-          subFolder: r
-          push: always
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:dev

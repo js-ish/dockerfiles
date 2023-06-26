@@ -2,7 +2,7 @@ name: pytorch
 on:
   push:
     branches:
-      - 'fix-workflows'
+      - 'main'
     paths:
       - 'pytorch/**/*'
 env:

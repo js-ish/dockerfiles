@@ -1,4 +1,4 @@
-FROM swr.cn-east-3.myhuaweicloud.com/ish/pythonapp:debian
+FROM swr.cn-east-3.myhuaweicloud.com/ish/pythonapp:base
 
 RUN set -eux; \
     apt-get update; \
