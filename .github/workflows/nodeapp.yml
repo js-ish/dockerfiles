@@ -1,13 +1,13 @@
-name: pytorch
+name: nodeapp
 on:
   push:
     branches:
       - 'main'
     paths:
-      - 'pytorch/**/*'
+      - 'nodeapp/**/*'
 env:
   REGISTRY: swr.cn-east-3.myhuaweicloud.com
-  IMAGE_NAME: $REGISTRY/ish/pytorch
+  IMAGE_NAME: $REGISTRY/ish/nodeapp
 
 jobs:
   basecontainer:
@@ -24,8 +24,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./pytorch
-          file: ./pytorch/base.Dockerfile
+          context: ./nodeapp
+          file: ./nodeapp/base.Dockerfile
           push: true
           tags: ${{ env.IMAGE_NAME }}:base
   devcontainer:
@@ -41,13 +41,13 @@ jobs:
       - name: Build and run Dev Container task
         uses: devcontainers/ci@v0.3
         with:
-          context: ./pytorch
-          file: ./pytorch/dev.Dockerfile
+          context: ./nodeapp
+          file: ./nodeapp/dev.Dockerfile
           imageName: ${{ env.IMAGE_NAME }}
           imageTag: dev
-          subFolder: pytorch
+          subFolder: nodeapp
           push: always
-  traincontainer:
+  deploycontainer:
     runs-on: ubuntu-latest
     needs: basecontainer
     steps:
@@ -60,9 +60,9 @@ jobs:
       - name: Build and run Dev Container task
         uses: devcontainers/ci@v0.3
         with:
-          context: ./pytorch
-          file: ./pytorch/train.Dockerfile
+          context: ./nodeapp
+          file: ./nodeapp/deploy.Dockerfile
           imageName: ${{ env.IMAGE_NAME }}
           imageTag: train
-          subFolder: pytorch
+          subFolder: nodeapp
           push: always
