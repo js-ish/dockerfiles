@@ -12,7 +12,6 @@ RUN set -eux; \
     sed -i -E "s/#?\s*PasswordAuthentication\s+.+/PasswordAuthentication yes/g" /etc/ssh/sshd_config; \
     mkdir /run/sshd;
 
-
 RUN set -eux; \
     useradd -s /bin/bash --uid 1001 -U -m dev; \
     echo "dev:dev" | chpasswd; \

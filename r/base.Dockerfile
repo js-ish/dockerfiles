@@ -14,6 +14,7 @@ RUN set -eux; \
     ; \
     rm -rf /var/lib/apt/lists/*;
 
+
 RUN install2.r --error stringi && R -e 'BiocManager::install("ComplexHeatmap")' && install2.r --error \
     openxlsx \
     data.table \

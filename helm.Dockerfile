@@ -4,6 +4,7 @@ ARG HELM_VERSION=3.3.1
 
 ENV BASE_URL="https://get.helm.sh"
 ENV TAR_FILE="helm-v${HELM_VERSION}-linux-amd64.tar.gz"
+
 RUN set -eux; \
     sed -i "s@dl-cdn.alpinelinux.org/@repo.huaweicloud.com/@g" /etc/apk/repositories; \
     apk add --update --no-cache git; \
