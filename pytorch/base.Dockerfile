@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.7.1-devel-ubuntu22.04
+FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
 
 RUN set -eux; \
     sed -i "s@//.*archive.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
@@ -11,5 +11,7 @@ RUN set -eux; \
     ; \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --disable-pip-version-check --no-cache-dir \
-    torch torchvision torchaudio torchtext Pillow scikit-learn
+RUN pip install --disable-pip-version-check --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cu116 \
+    torch==1.13.1+cu116 torchvision==0.14.1+cu116; \
+    pip install --disable-pip-version-check --no-cache-dir \
+    torchaudio==0.13.1 torchtext==0.14.1 Pillow scikit-learn
