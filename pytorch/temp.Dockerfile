@@ -13,4 +13,4 @@ RUN set -eux; \
 
 
 RUN pip install --disable-pip-version-check --no-cache-dir \
-    torch torchvision torchaudio torchtext Pillow scikit-learn
+    torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 Pillow scikit-learn
