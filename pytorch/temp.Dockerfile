@@ -12,6 +12,4 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install --disable-pip-version-check --no-cache-dir \
-    -i https://repo.huaweicloud.com/repository/pypi/simple \
-    --extra-index-url https://mirrors.aliyun.com/pypi/simple \
     torch torchvision torchaudio torchtext Pillow scikit-learn

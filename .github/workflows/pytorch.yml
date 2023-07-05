@@ -48,7 +48,6 @@ jobs:
           tags: ${{ env.IMAGE_NAME }}:dev
   traincontainer:
     runs-on: ubuntu-latest
-    needs: basecontainer
     steps:
       - uses: actions/checkout@v2
       - name: Log in to the Container registry
