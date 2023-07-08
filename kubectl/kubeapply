@@ -4,6 +4,7 @@ apply_one() {
     yaml_kind=$(yq e '.kind' $1)
     ns=$(yq e '.metadata.namespace' $1)
     name=$(yq e '.metadata.name' $1)
+    apply_version=$(yq e '.apiVersion' $1)
 
     if [ $yaml_kind == "CronJob" ]; then
         kubectl delete --ignore-not-found=true cronjob/$name -n $ns
@@ -11,8 +12,12 @@ apply_one() {
     elif [ $yaml_kind == "Deployment" ]; then
         yq e -i ".spec.template.spec.containers[0].image |= strenv(IMAGE_TAG)" $1
     elif [ $yaml_kind == "Job" ]; then
-        kubectl delete --ignore-not-found=true job/$name -n $ns
-        yq e -i ".spec.template.spec.containers[0].image |= strenv(IMAGE_TAG)" $1
+        if [ $apply_version == "batch.volcano.sh/v1alpha1" ]; then
+            kubectl delete --ignore-not-found=true vcjob/$name -n $ns
+            yq e -i ".spec.tasks[0].template.spec.containers[0].image |= strenv(IMAGE_TAG)" $1
+        else
+            kubectl delete --ignore-not-found=true job/$name -n $ns
+            yq e -i ".spec.template.spec.containers[0].image |= strenv(IMAGE_TAG)" $1
     fi
     kubectl apply -f $1
 }
