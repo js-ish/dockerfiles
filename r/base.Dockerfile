@@ -1,8 +1,6 @@
 FROM rocker/tidyverse:4.2.2
 
 RUN set -eux; \
-    sed -i "s@//.*archive.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
-    sed -i "s@//.*security.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
     apt-get update;  \
     apt-get install -y --no-install-recommends \
         libpng-dev \
