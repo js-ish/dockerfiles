@@ -8,4 +8,5 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*; \
     pip --disable-pip-version-check --no-cache-dir install \
         mysqlclient \
+        requests \
     ;
