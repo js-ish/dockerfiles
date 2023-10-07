@@ -9,4 +9,5 @@ RUN set -eux; \
     pip --disable-pip-version-check --no-cache-dir install \
         mysqlclient \
         requests \
+        PyYaml \
     ;
