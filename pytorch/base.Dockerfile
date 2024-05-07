@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
+FROM nvidia/cuda:12.2.2-devel-ubuntu20.04
 
 RUN set -eux; \
     apt-get update; \
@@ -11,7 +11,6 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install --disable-pip-version-check --no-cache-dir \
-       torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 \
-       --extra-index-url https://download.pytorch.org/whl/cu116; \
+       torch==2.1.0 torchvision==0.16 torchaudio==2.1.0 torchtext==0.16.0; \
     pip install --disable-pip-version-check --no-cache-dir \
        Pillow scikit-learn pyyaml
