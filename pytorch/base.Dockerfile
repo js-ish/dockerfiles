@@ -6,7 +6,6 @@ RUN set -eux; \
         python3-dev \
         python3-pip \
         python-is-python3 \
-        python3-mysqldb \
     ; \
     rm -rf /var/lib/apt/lists/*
 
