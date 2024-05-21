@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.2.2-devel-ubuntu22.04
+FROM nvidia/cuda:12.1.1-devel-ubuntu22.04
 
 RUN set -eux; \
     apt-get update; \
