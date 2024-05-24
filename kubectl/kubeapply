@@ -19,6 +19,9 @@ apply_one() {
             kubectl delete --ignore-not-found=true job/$name -n $ns
             yq e -i ".spec.template.spec.containers[0].image |= strenv(IMAGE_TAG)" $1
         fi
+    elif [ $yaml_kind == "Pod" ]; then
+        kubectl delete --ignore-not-found=true pod/$name -n $ns
+        yq e -i ".spec.containers[0].image |= strenv(IMAGE_TAG)" $1
     fi
     kubectl apply -f $1
 }
