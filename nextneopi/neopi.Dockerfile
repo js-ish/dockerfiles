@@ -30,8 +30,6 @@ RUN curl -L -o gatk-4.5.0.0.zip https://github.com/broadinstitute/gatk/releases/
     chmod +x /opt/gatk/gatk ;\
     ln -s /opt/gatk/gatk /opt/conda/bin/gatk;
 
-USER mambauser
-
 RUN micromamba install --yes --name base --file /nextNEOpi.yml; \
     rm -f /nextNEOpi.yml;\
     rm -f gatk-4.5.0.0.zip;\
@@ -40,3 +38,5 @@ RUN micromamba install --yes --name base --file /nextNEOpi.yml; \
     micromamba clean --all --yes;\
     export LANG=C.UTF-8 LC_ALL=C.UTF-8;\
     export PATH=/usr/lib/jvm/java-17-openjdk-amd64/bin/:/opt/conda/bin:$PATH;
+
+USER mambauser
