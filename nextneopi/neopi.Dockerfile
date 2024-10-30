@@ -1,8 +1,5 @@
 FROM mambaorg/micromamba:2-ubuntu20.04
 
-COPY nextNEOpi.yml /nextNEOpi.yml
-COPY .mambarc /root/.mambarc
-
 USER root
 RUN set -eux; \
     sed -i "s@//.*archive.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
@@ -23,6 +20,8 @@ RUN export LANG=C.UTF-8 LC_ALL=C.UTF-8;\
     mkdir -p /opt/gatk; \
     mkdir -p /opt/conda/bin;
 
+COPY nextNEOpi.yml /nextNEOpi.yml
+COPY .mambarc /root/.mambarc
 
 RUN curl -L -o gatk-4.5.0.0.zip https://github.com/broadinstitute/gatk/releases/download/4.5.0.0/gatk-4.5.0.0.zip;\
     unzip -j gatk-4.5.0.0.zip gatk-4.5.0.0/gatkPythonPackageArchive.zip -d ./ ;\
