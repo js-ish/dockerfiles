@@ -32,9 +32,6 @@ RUN curl -L -o gatk-4.5.0.0.zip https://github.com/broadinstitute/gatk/releases/
 COPY .mambarc /root/.mambarc
 COPY nextNEOpi.yml /nextNEOpi.yml
 
-# RUN micromamba create --name base -f /nextNEOpi.yml -y -c conda-forge -c bioconda -c defaults
-
-# RUN micromamba install --yes --name base --file /nextNEOpi.yml;\
 RUN conda env update --name base --file /nextNEOpi.yml;\
     rm -f /nextNEOpi.yml;\
     rm -f gatk-4.5.0.0.zip;\
