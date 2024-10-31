@@ -35,7 +35,7 @@ COPY nextNEOpi.yml /nextNEOpi.yml
 # RUN micromamba create --name base -f /nextNEOpi.yml -y -c conda-forge -c bioconda -c defaults
 
 # RUN micromamba install --yes --name base --file /nextNEOpi.yml;\
-RUN conda install -f /nextNEOpi.yml;\
+RUN conda env update --file /nextNEOpi.yml;\
     rm -f /nextNEOpi.yml;\
     rm -f gatk-4.5.0.0.zip;\
     rm -f gatkPythonPackageArchive.zip;\

@@ -1,6 +1,6 @@
 # py3 conda environment for pipeline scripts
 #
-name: nextNEOpi
+#name: nextNEOpi
 channels:
   - conda-forge
   - bioconda
