@@ -27,4 +27,4 @@ jobs:
           context: ./nextneopi
           file: ./nextneopi/neopi.Dockerfile
           push: true
-          tags: ${{ env.IMAGE_NAME }}:neopienv
+          tags: ${{ env.IMAGE_NAME }}:neopienv-v2
