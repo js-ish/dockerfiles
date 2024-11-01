@@ -6,60 +6,277 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - bwa
-  - samtools
-  - sambamba
-  - bcftools
-  - varscan
-  - bam-readcount
-  - yara
-  - optitype
-
-  # core python dependencies for GATK4 (4.5.0.0)
-  - conda-forge::python=3.6.10 # do not update
-  - pip=21.3.1 # specifying channel may cause a warning to be emitted by conda
-  - conda-forge::mkl=2019.5 # MKL typically provides dramatic performance increases for theano, tensorflow, and other key dependencies
-  - conda-forge::mkl-service=2.3.0
-  - conda-forge::joblib=1.1.1 # must pin joblib - versions after 1.1.1 no longer support python 3.6
-  - conda-forge::numpy=1.17.5 # do not update, this will break scipy=1.0.0
-    #   verify that numpy is compiled against MKL (e.g., by checking *_mkl_info using numpy.show_config())
-    #   and that it is used in tensorflow, theano, and other key dependencies
-  - conda-forge::theano=1.0.4 # it is unlikely that new versions of theano will be released
-    #   verify that this is using numpy compiled against MKL (e.g., by the presence of -lmkl_rt in theano.config.blas.ldflags)
-  - defaults::tensorflow=1.15.0 # update only if absolutely necessary, as this may cause conflicts with other core dependencies
-    #   verify that this is using numpy compiled against MKL (e.g., by checking tensorflow.pywrap_tensorflow.IsMklEnabled())
-  - conda-forge::scipy=1.0.0 # do not update, this will break a scipy.misc.logsumexp import (deprecated in scipy=1.0.0) in pymc3=3.1
-  - conda-forge::pymc3=3.1 # do not update, this will break gcnvkernel
-  - conda-forge::h5py=2.10.0 # required by keras 2.2.4
-  - conda-forge::keras=2.2.4 # updated from pip-installed 2.2.0, which caused various conflicts/clobbers of conda-installed packages
-    #   conda-installed 2.2.4 appears to be the most recent version with a consistent API and without conflicts/clobbers
-    #   if you wish to update, note that versions of conda-forge::keras after 2.2.5
-    #   undesirably set the environment variable KERAS_BACKEND = theano by default
-  - defaults::intel-openmp=2019.4
-  - conda-forge::scikit-learn=0.23.1
-  - conda-forge::matplotlib=3.2.1
-  - conda-forge::pandas=1.0.3
-  - conda-forge::typing_extensions=4.1.1   # see https://github.com/broadinstitute/gatk/issues/7800 and linked PRs
-  - conda-forge::dill=0.3.4                # used for pickling lambdas in TrainVariantAnnotationsModel
-  - conda-forge::libxcrypt
-  - conda-forge::absl-py=1.4.0
-
-  # core R dependencies; these should only be used for plotting and do not take precedence over core python dependencies!
-  - r-base>=3.6.2
-  - r-data.table=1.12.8
-  - r-dplyr=0.8.5
-  - r-getopt=1.20.3
-  - r-ggplot2=3.3.0
-  - r-gplots=3.0.3
-  - r-gsalib=2.1
-  - r-optparse=1.6.4
-  - r-backports=1.1.10
-
-  # other python dependencies; these should be removed after functionality is moved into Java code
-  - biopython=1.76
-  - pyvcf=0.6.8
-  - bioconda::pysam=0.16 # using older conda-installed versions may result in libcrypto / openssl bugs
-
-  # pip installs should be avoided, as pip may not respect the dependencies found by the conda solver
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_kmp_llvm
+  - _r-mutex=1.0.1=anacondar_1
+  - absl-py=1.4.0=pyhd8ed1ab_0
+  - alsa-lib=1.2.3.2=h166bdaf_0
+  - astor=0.8.1=pyh9f0ad1d_0
+  - bam-readcount=0.8=py36pl5.22.0_1
+  - bcftools=1.12=h45bccc9_1
+  - binutils_impl_linux-64=2.36.1=h193b22a_2
+  - binutils_linux-64=2.36=hf3e587d_33
+  - biopython=1.76=py36h516909a_0
+  - blas=1.1=openblas
+  - blosc=1.21.5=hc2324a3_1
+  - bwa=0.7.18=he4a0461_0
+  - bwidget=1.9.14=ha770c72_1
+  - bzip2=1.0.8=hd590300_5
+  - c-ares=1.28.1=hd590300_0
+  - ca-certificates=2024.2.2=hbcca054_0
+  - cairo=1.16.0=hcf35c78_1003
+  - colorama=0.4.5=pyhd8ed1ab_0
+  - curl=7.76.1=h979ede3_1
+  - cycler=0.11.0=pyhd8ed1ab_0
+  - dataclasses=0.8=pyh787bdff_2
+  - dbus=1.13.6=hfdff14a_1
+  - dill=0.3.4=pyhd8ed1ab_0
+  - expat=2.6.2=h59595ed_0
+  - fontconfig=2.14.2=h14ed4e7_0
+  - freetype=2.12.1=h267a509_2
+  - fribidi=1.0.10=h36c2ea0_0
+  - future=0.18.2=py36h5fab9bb_3
+  - gast=0.5.4=pyhd8ed1ab_0
+  - gcc_impl_linux-64=7.5.0=habd7529_20
+  - gcc_linux-64=7.5.0=h47867f9_33
+  - gettext=0.22.5=h59595ed_2
+  - gettext-tools=0.22.5=h59595ed_2
+  - gfortran_impl_linux-64=7.5.0=h56cb351_20
+  - gfortran_linux-64=7.5.0=h78c8a43_33
+  - giflib=5.2.2=hd590300_0
+  - glib=2.66.3=h58526e2_0
+  - glpk=5.0=h445213a_0
+  - gmp=6.3.0=h59595ed_1
+  - google-pasta=0.2.0=pyh8c360ce_0
+  - graphite2=1.3.13=h59595ed_1003
+  - grpcio=1.38.1=py36h8e87921_0
+  - gsl=2.6=he838d99_2
+  - gst-plugins-base=1.14.5=h0935bb2_2
+  - gstreamer=1.14.5=h36ae1b5_2
+  - gxx_impl_linux-64=7.5.0=hd0bb8aa_20
+  - gxx_linux-64=7.5.0=h555fc39_33
+  - h5py=2.10.0=nompi_py36h4510012_106
+  - harfbuzz=2.4.0=h9f30f68_3
+  - hdf5=1.10.6=nompi_h7c3c948_1111
+  - htslib=1.12=h9093b5e_1
+  - icu=64.2=he1b5a44_1
+  - importlib-metadata=4.8.1=py36h5fab9bb_0
+  - jbig=2.1=h7f98852_2003
+  - joblib=1.1.1=pyhd8ed1ab_0
+  - jpeg=9e=h0b41bf4_3
+  - keras=2.2.4=py36_1
+  - keras-applications=1.0.8=py_1
+  - keras-preprocessing=1.1.2=pyhd8ed1ab_0
+  - kernel-headers_linux-64=2.6.32=he073ed8_17
+  - kiwisolver=1.3.1=py36h605e78d_1
+  - krb5=1.17.2=h926e7f8_0
+  - lcms2=2.12=hddcbb42_0
+  - ld_impl_linux-64=2.36.1=hea4e1c9_2
+  - ldc=1.20.0=h9a1ace1_1
+  - lerc=2.2.1=h9c3ff4c_0
+  - libasprintf=0.22.5=h661eb56_2
+  - libasprintf-devel=0.22.5=h661eb56_2
+  - libblas=3.9.0=1_h6e990d7_netlib
+  - libcblas=3.9.0=3_h893e4fe_netlib
+  - libclang=9.0.1=default_hb4e5071_5
+  - libcurl=7.76.1=hc4aaa36_1
+  - libdeflate=1.7=h7f98852_5
+  - libedit=3.1.20191231=he28a2e2_2
+  - libev=4.33=hd590300_2
+  - libexpat=2.6.2=h59595ed_0
+  - libffi=3.2.1=he1b5a44_1007
+  - libgcc=7.2.0=h69d50b8_2
+  - libgcc-devel_linux-64=7.5.0=hda03d7c_20
+  - libgcc-ng=13.2.0=h77fa898_6
+  - libgettextpo=0.22.5=h59595ed_2
+  - libgettextpo-devel=0.22.5=h59595ed_2
+  - libgfortran=3.0.0=1
+  - libgfortran-ng=7.5.0=h14aa051_20
+  - libgfortran4=7.5.0=h14aa051_20
+  - libglib=2.66.3=hbe7bbb4_0
+  - libgomp=13.2.0=h77fa898_6
+  - libgpuarray=0.7.6=h7f98852_1003
+  - libiconv=1.17=hd590300_2
+  - liblapack=3.9.0=3_h893e4fe_netlib
+  - libllvm9=9.0.1=default_hc23dcda_7
+  - libnghttp2=1.51.0=hdcd2b5c_0
+  - libpng=1.6.43=h2797004_0
+  - libprotobuf=3.18.0=h780b84a_1
+  - libsqlite=3.45.3=h2797004_0
+  - libssh2=1.10.0=haa6b8db_3
+  - libstdcxx-devel_linux-64=7.5.0=hb016644_20
+  - libstdcxx-ng=13.2.0=hc0a3c3a_6
+  - libtiff=4.3.0=hf544144_1
+  - libuuid=2.38.1=h0b41bf4_0
+  - libwebp-base=1.4.0=hd590300_0
+  - libxcb=1.15=h0b41bf4_0
+  - libxcrypt=4.4.36=hd590300_1
+  - libxkbcommon=0.10.0=he1b5a44_0
+  - libxml2=2.9.10=hee79883_0
+  - libzlib=1.2.13=hd590300_5
+  - llvm-openmp=18.1.4=ha31de31_0
+  - lz4-c=1.9.4=hcb278e6_0
+  - lzo=2.10=hd590300_1001
+  - make=4.3=hd18ef5c_1
+  - mako=1.3.3=pyhd8ed1ab_0
+  - markdown=3.6=pyhd8ed1ab_0
+  - markupsafe=2.0.1=py36h8f6f2f9_0
+  - matplotlib=3.2.1=0
+  - matplotlib-base=3.2.1=py36hb8e4980_0
+  - mkl=2019.5=281
+  - mkl-service=2.3.0=py36h516909a_0
+  - mock=5.1.0=pyhd8ed1ab_0
+  - ncurses=6.2=h58526e2_4
+  - nspr=4.35=h27087fc_0
+  - nss=3.98=h1d7d5a4_0
+  - numexpr=2.7.3=py36h284efc9_0
+  - numpy=1.17.5=py36h2aa4a07_1
+  - openblas=0.2.20=8
+  - openjdk=11.0.8=hacce0ff_0
+  - openssl=1.1.1w=hd590300_0
+  - optitype=1.3.5=hdfd78af_2
+  - pandas=1.0.3=py36h830a2c2_1
+  - pango=1.42.4=h7062337_4
+  - patsy=0.5.6=pyhd8ed1ab_0
+  - pcre=8.45=h9c3ff4c_0
+  - perl=5.22.0.1=0
+  - pip=21.3.1=pyhd8ed1ab_0
+  - pixman=0.38.0=h516909a_1003
+  - ply=3.11=pyhd8ed1ab_2
+  - protobuf=3.18.0=py36hc4f0c31_0
+  - pthread-stubs=0.4=h36c2ea0_1001
+  - pygpu=0.7.6=py36h92226af_1002
+  - pymc3=3.1=py36_0
+  - pyomo=6.1.2=py36hc4f0c31_0
+  - pyparsing=3.1.2=pyhd8ed1ab_0
+  - pyqt=5.12.3=py36haa643ae_3
+  - pysam=0.16.0.1=py36h61e5637_3
+  - pytables=3.6.1=py36hb7ec5aa_3
+  - python=3.6.10=h8356626_1011_cpython
+  - python-dateutil=2.8.2=pyhd8ed1ab_0
+  - python_abi=3.6=2_cp36m
+  - pytz=2023.3.post1=pyhd8ed1ab_0
+  - pyvcf=0.6.8=py36h9f0ad1d_1002
+  - pyyaml=5.4.1=py36h8f6f2f9_1
+  - qt=5.12.5=hd8c4c69_1
+  - r-assertthat=0.2.1=r36h6115d3f_2
+  - r-backports=1.1.10=r36hcdcec82_0
+  - r-base=3.6.3=h316533a_2
+  - r-bitops=1.0_7=r36hcfec24a_0
+  - r-brio=1.1.2=r36hcfec24a_0
+  - r-callr=3.7.0=r36hc72bb7e_0
+  - r-catools=1.18.2=r36h03ef668_0
+  - r-cli=2.5.0=r36hc72bb7e_0
+  - r-colorspace=2.0_1=r36hcfec24a_0
+  - r-crayon=1.4.1=r36hc72bb7e_0
+  - r-data.table=1.12.8=r36hcdcec82_1
+  - r-desc=1.3.0=r36hc72bb7e_0
+  - r-diffobj=0.3.4=r36hcfec24a_0
+  - r-digest=0.6.27=r36h03ef668_0
+  - r-dplyr=0.8.5=r36h0357c0b_1
+  - r-ellipsis=0.3.2=r36hcfec24a_0
+  - r-evaluate=0.14=r36h6115d3f_2
+  - r-fansi=0.4.2=r36hcfec24a_0
+  - r-farver=2.1.0=r36h03ef668_0
+  - r-gdata=2.18.0=r36h6115d3f_1003
+  - r-getopt=1.20.3=r36_2
+  - r-ggplot2=3.3.0=r36h6115d3f_1
+  - r-glue=1.4.2=r36hcfec24a_0
+  - r-gplots=3.0.3=r36h6115d3f_1
+  - r-gsalib=2.1=r36_1002
+  - r-gtable=0.3.0=r36h6115d3f_3
+  - r-gtools=3.8.2=r36hcdcec82_1
+  - r-isoband=0.2.4=r36h03ef668_0
+  - r-jsonlite=1.7.2=r36hcfec24a_0
+  - r-kernsmooth=2.23_18=r36h7679c2e_0
+  - r-labeling=0.4.2=r36h142f84f_0
+  - r-lattice=0.20_44=r36hcfec24a_0
+  - r-lifecycle=1.0.0=r36hc72bb7e_0
+  - r-magrittr=2.0.1=r36hcfec24a_1
+  - r-mass=7.3_54=r36hcfec24a_0
+  - r-matrix=1.3_3=r36he454529_0
+  - r-mgcv=1.8_35=r36he454529_0
+  - r-munsell=0.5.0=r36h6115d3f_1003
+  - r-nlme=3.1_150=r36h31ca83e_0
+  - r-optparse=1.6.4=r36h6115d3f_0
+  - r-pillar=1.6.1=r36hc72bb7e_0
+  - r-pkgconfig=2.0.3=r36h6115d3f_1
+  - r-pkgload=1.2.1=r36h03ef668_0
+  - r-plogr=0.2.0=r36h6115d3f_1003
+  - r-praise=1.0.0=r36h6115d3f_1004
+  - r-processx=3.5.2=r36hcfec24a_0
+  - r-ps=1.6.0=r36hcfec24a_0
+  - r-purrr=0.3.4=r36hcfec24a_1
+  - r-r6=2.5.0=r36hc72bb7e_0
+  - r-rcolorbrewer=1.1_2=r36h6115d3f_1003
+  - r-rcpp=1.0.6=r36h03ef668_0
+  - r-rematch2=2.1.2=r36h6115d3f_1
+  - r-rlang=0.4.11=r36hcfec24a_0
+  - r-rprojroot=2.0.2=r36hc72bb7e_0
+  - r-rstudioapi=0.13=r36hc72bb7e_0
+  - r-scales=1.1.1=r36h6115d3f_0
+  - r-testthat=3.0.2=r36h03ef668_0
+  - r-tibble=3.1.2=r36hcfec24a_0
+  - r-tidyselect=1.1.1=r36hc72bb7e_0
+  - r-utf8=1.2.1=r36hcfec24a_0
+  - r-vctrs=0.3.8=r36hcfec24a_1
+  - r-viridislite=0.4.0=r36hc72bb7e_0
+  - r-waldo=0.2.5=r36hc72bb7e_0
+  - r-withr=2.4.2=r36hc72bb7e_0
+  - razers3=3.5.8=h6dccd9a_4
+  - readline=8.1=h46c0cb4_0
+  - sambamba=0.8.1=h41abebc_0
+  - samtools=1.12=h9aed4be_1
+  - scikit-learn=0.23.1=py36h0e1014b_0
+  - scipy=1.0.0=py36_blas_openblas_201
+  - sed=4.8=he412f7d_0
+  - setuptools=58.0.4=py36h5fab9bb_2
+  - six=1.16.0=pyh6c4a22f_0
+  - snappy=1.2.0=hdb0a2a9_1
+  - sqlite=3.37.0=h9cd32fc_0
+  - sysroot_linux-64=2.12=he073ed8_17
+  - tensorboard=1.14.0=py36_0
+  - tensorflow=1.14.0=hc3e5e64_0
+  - tensorflow-base=1.14.0=py36hc3e5e64_0
+  - tensorflow-estimator=1.14.0=py36h5ca1d4c_0
+  - termcolor=1.1.0=pyhd8ed1ab_3
+  - theano=1.0.4=py36h831f99a_1002
+  - threadpoolctl=3.1.0=pyh8a188c0_0
+  - tk=8.6.13=noxft_h4845f30_101
+  - tktable=2.10=h0c5db8f_5
+  - tornado=6.1=py36h8f6f2f9_1
+  - tqdm=4.65.0=pyhd8ed1ab_0
+  - typing_extensions=4.1.1=pyha770c72_0
+  - varscan=2.4.6=hdfd78af_0
+  - werkzeug=2.0.2=pyhd8ed1ab_0
+  - wheel=0.37.1=pyhd8ed1ab_0
+  - wrapt=1.13.1=py36h8f6f2f9_0
+  - xorg-fixesproto=5.0=h7f98852_1002
+  - xorg-inputproto=2.3.2=h7f98852_1002
+  - xorg-kbproto=1.0.7=h7f98852_1002
+  - xorg-libice=1.1.1=hd590300_0
+  - xorg-libsm=1.2.4=h7391055_0
+  - xorg-libx11=1.8.9=h8ee46fc_0
+  - xorg-libxau=1.0.11=hd590300_0
+  - xorg-libxdmcp=1.1.3=h7f98852_0
+  - xorg-libxext=1.3.4=h0b41bf4_2
+  - xorg-libxfixes=5.0.3=h7f98852_1004
+  - xorg-libxi=1.7.10=h7f98852_0
+  - xorg-libxrender=0.9.11=hd590300_0
+  - xorg-libxtst=1.2.3=h7f98852_1002
+  - xorg-recordproto=1.14.2=h7f98852_1002
+  - xorg-renderproto=0.11.1=h7f98852_1002
+  - xorg-xextproto=7.3.0=h0b41bf4_1003
+  - xorg-xproto=7.0.31=h7f98852_1007
+  - xz=5.2.6=h166bdaf_0
+  - yaml=0.2.5=h7f98852_2
+  - yara=1.0.2=h9ee0642_3
+  - zipp=3.6.0=pyhd8ed1ab_0
+  - zlib=1.2.13=hd590300_5
+  - zstd=1.5.6=ha6fb4c9_0
   - pip:
+      - pyqt5-sip==4.19.18
+      - pyqtchart==5.12
+      - pyqtwebengine==5.12.1
+      - gatkpythonpackages==0.1
       - gatkPythonPackageArchive.zip
