@@ -3,10 +3,10 @@ FROM condaforge/miniforge3:24.7.1-0
 
 # USER root
 RUN set -eux; \
-    sed -i "s@//.*archive.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
-    sed -i "s@//.*security.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
+    # sed -i "s@//.*archive.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
+    # sed -i "s@//.*security.ubuntu.com@//repo.huaweicloud.com@g" /etc/apt/sources.list; \
     apt-get update; \
-    apt-get --allow-releaseinfo-change update && apt-get install -y \
+    apt-get --allow-releaseinfo-change update && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
         procps \
         curl \
         unzip \
